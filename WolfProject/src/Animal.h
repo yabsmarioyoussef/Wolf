@@ -19,13 +19,13 @@ typedef struct Animal {
 	int (*agefunc)(struct Animal*);
 } AnimalT;
 
-void eat(AnimalT *animal);
-void poop(AnimalT *animal);
-int getTTL(int age, int energy);
-void sleep(AnimalT *animal);
-int getEnergy(AnimalT *animal);
-int getAge(AnimalT *animal);
-char * getName(AnimalT *animal);
+static void eat(AnimalT *animal);
+static void poop(AnimalT *animal);
+static int getTTL(int age, int energy);
+static void sleep(AnimalT *animal);
+static int getEnergy(AnimalT *animal);
+static int getAge(AnimalT *animal);
+static char * getName(AnimalT *animal);
 
 
 #endif //YABSJAVATEST_ANIMAL_H

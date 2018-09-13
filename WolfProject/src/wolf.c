@@ -1,32 +1,53 @@
-
 ///
 // Created by Mario Youssef on 2018-08-21.
 //
 #include "Animal.h"
+#include <string.h>
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <memory.h>
-#include "Wolf.h"
 
-void eat(AnimalT *animal){
+#ifndef WOLF_C_
+#define WOLF_C_
+
+typedef struct Wolf {
+	AnimalT *animal;
+	void (*huntfunc)(AnimalT*);
+} WolfT;
+
+static void hunt(AnimalT *animal);
+
+static void eat(AnimalT *animal){
 	printf("EErgy before eat %d \n", animal->energy);
-	((WolfT*) animal)->ani->energy += 25;
+    	animal->energy += 25;
 	printf("EErgy after eat %d \n", animal->energy);
 }
 
-void poop(AnimalT *animal) {
-	animal->energy += (-10);
+void wolf_eat(WolfT *wolf) {
+	wolf->animal->eatfunc(wolf->animal);
 }
 
-void hunt(WolfT* wolf) {
+static void poop(AnimalT *animal) {
+    animal->energy += (-10);
+}
+
+void wolf_poop(WolfT *wolf) {
+	wolf->animal->poopfunc(wolf->animal);
+}
+
+static void hunt(AnimalT *animal) {
     int effort = -25;
 
     int r = rand();
     if(r % 2 == 0) {
         effort +=15;
     }
-    wolf->ani->energy += effort;
+    animal->energy += effort;
+}
+
+void wolf_hunt(WolfT *wolf) {
+	wolf->huntfunc(wolf->animal);
 }
 
 static int calculateTTL(int age, int energy) {
@@ -38,35 +59,56 @@ int getTTL(int age, int energy) {
     return ttl;
 }
 
-void sleep(AnimalT *animal) {
-	animal->energy += 15;
+static void sleep(AnimalT *animal) {
+    animal->energy += 15;
 }
 
-char * getName(AnimalT *animal) {
+void wolf_sleep(WolfT *wolf) {
+	wolf->animal->sleepfunc(wolf->animal);
+}
+
+static char * getName(AnimalT *animal) {
 	return animal->name;
 }
 
-int getEnergy(AnimalT *animal) {
+char * wolf_name(WolfT *wolf) {
+	return wolf->animal->namefunc(wolf->animal);
+}
+
+static int getEnergy(AnimalT *animal) {
 	return animal->energy;
 }
 
-int getAge(AnimalT *animal) {
-	return  animal->age;
+int wolf_energy(WolfT *wolf) {
+	return wolf->animal->energyfunc(wolf->animal);
+}
+
+static int getAge(AnimalT *animal) {
+	return animal->age;
+}
+
+int wolf_age(WolfT *wolf) {
+	return wolf->animal->agefunc(wolf->animal);
 }
 
 void init(WolfT *wolf, char *name, int age) {
-	wolf->ani = (AnimalT *)malloc(sizeof(AnimalT));
-	strcpy(wolf->ani->name, name);
-	wolf->ani->age = age;
-	wolf->ani->energy = 20;
-	wolf->ani->eatfunc = &eat;
-	wolf->ani->poopfunc = &poop;
+	wolf->animal = (AnimalT *)malloc(sizeof(AnimalT));
+	strcpy(wolf->animal->name, name);
+	wolf->animal->age = age;
+	wolf->animal->energy = 20;
+	wolf->animal->eatfunc = &eat;
+	wolf->animal->poopfunc = &poop;
+	wolf->animal->getTTLfunc = &getTTL;
+	wolf->animal->sleepfunc = &sleep;
+	wolf->animal->namefunc = &getName;
+	wolf->animal->energyfunc = &getEnergy;
+	wolf->animal->agefunc = &getAge;
 	wolf->huntfunc = &hunt;
-	wolf->ani->getTTLfunc = &getTTL;
-	wolf->ani->sleepfunc = &sleep;
-	wolf->ani->namefunc = &getName;
-	wolf->ani->energyfunc = &getEnergy;
-	wolf->ani->agefunc = &getAge;
 }
+/*
+deinit(struct Wolf *wolf) {
 
+}
+*/
 
+#endif
