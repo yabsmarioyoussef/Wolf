@@ -9,17 +9,23 @@ typedef struct Animal {
 	char name[50];
 	int age;
 	int energy;
-	int (*eatfunc)(char*);
-	int (*poopfunc)();
+
+	void (*eatfunc)(struct Animal*);
+	void (*poopfunc)(struct Animal*);
 	int (*getTTLfunc)(int, int);
-	int (*sleepfunc)();
+	void (*sleepfunc)(struct Animal*);
+	int (*energyfunc)(struct Animal*);
+	char * (*namefunc)(struct Animal*);
+	int (*agefunc)(struct Animal*);
 } AnimalT;
 
-int eat(char* foodtype);
-int poop();
-int hunt();
+void eat(AnimalT *animal);
+void poop(AnimalT *animal);
 int getTTL(int age, int energy);
-int sleep();
+void sleep(AnimalT *animal);
+int getEnergy(AnimalT *animal);
+int getAge(AnimalT *animal);
+char * getName(AnimalT *animal);
 
 
 #endif //YABSJAVATEST_ANIMAL_H

@@ -1,10 +1,10 @@
-
+// Created by Mario Youssef on 2018-08-21.
+//
+/*
 #include "Animal.h"
 #include <stdio.h>
-#include <time.h>
-#include <stdlib.h>
-#include <memory.h>
-#include "wolf.c"
+#include <string.h>
+#include "Wolf.h"
 
 int main(void) {
 
@@ -31,3 +31,4 @@ int main(void) {
 
 }
 
+*/

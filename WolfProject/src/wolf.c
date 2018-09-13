@@ -1,3 +1,4 @@
+
 ///
 // Created by Mario Youssef on 2018-08-21.
 //
@@ -6,43 +7,26 @@
 #include <time.h>
 #include <stdlib.h>
 #include <memory.h>
+#include "Wolf.h"
 
-typedef struct Wolf {
-	AnimalT *animal;
-	int (*huntfunc)();
-} WolfT;
-
-int eat(char *foodType){
-    if(strcmp(foodType, "fish") == 0) {
-		printf("we will gain %d energy \n", 25);
-        return 25;
-    }
-    else if(strcmp(foodType, "sheep") == 0) {
-		printf("we will gain %d energy \n", 35);
-        return 35;
-    }
-    else if(strcmp(foodType, "human") == 0) {
-		printf("we will gain %d energy \n", 55);
-        return 50;
-    }
-    else {
-		printf("we will gain %d energy \n", 10);
-        return 10;
-    }
+void eat(AnimalT *animal){
+	printf("EErgy before eat %d \n", animal->energy);
+	((WolfT*) animal)->ani->energy += 25;
+	printf("EErgy after eat %d \n", animal->energy);
 }
 
-int poop() {
-    return -10;
+void poop(AnimalT *animal) {
+	animal->energy += (-10);
 }
 
-int hunt() {
+void hunt(WolfT* wolf) {
     int effort = -25;
 
     int r = rand();
     if(r % 2 == 0) {
         effort +=15;
     }
-    return effort;
+    wolf->ani->energy += effort;
 }
 
 static int calculateTTL(int age, int energy) {
@@ -54,14 +38,35 @@ int getTTL(int age, int energy) {
     return ttl;
 }
 
-int sleep() {
-    return 15;
+void sleep(AnimalT *animal) {
+	animal->energy += 15;
 }
 
-init(WolfT* wolf) {
-	wolf->animal->eatfunc = &eat;
-	wolf->animal->poopfunc = &poop;
-	wolf->huntfunc = &hunt;
-	wolf->animal->getTTLfunc = &getTTL;
-	wolf->animal->sleepfunc = &sleep;
+char * getName(AnimalT *animal) {
+	return animal->name;
 }
+
+int getEnergy(AnimalT *animal) {
+	return animal->energy;
+}
+
+int getAge(AnimalT *animal) {
+	return  animal->age;
+}
+
+void init(WolfT *wolf, char *name, int age) {
+	wolf->ani = (AnimalT *)malloc(sizeof(AnimalT));
+	strcpy(wolf->ani->name, name);
+	wolf->ani->age = age;
+	wolf->ani->energy = 20;
+	wolf->ani->eatfunc = &eat;
+	wolf->ani->poopfunc = &poop;
+	wolf->huntfunc = &hunt;
+	wolf->ani->getTTLfunc = &getTTL;
+	wolf->ani->sleepfunc = &sleep;
+	wolf->ani->namefunc = &getName;
+	wolf->ani->energyfunc = &getEnergy;
+	wolf->ani->agefunc = &getAge;
+}
+
+
