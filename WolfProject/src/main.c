@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#define MODULE_WOLF
 #include "wolf.c"
 
 int main(void) {

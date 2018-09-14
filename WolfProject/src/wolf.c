@@ -1,6 +1,6 @@
-///
-// Created by Mario Youssef on 2018-08-21.
-//
+#ifdef MODULE_WOLF
+
+
 #include "Animal.h"
 #include <string.h>
 #include <stdio.h>
@@ -8,8 +8,6 @@
 #include <stdlib.h>
 #include <memory.h>
 
-#ifndef WOLF_C_
-#define WOLF_C_
 
 typedef struct Wolf {
 	AnimalT *animal;
@@ -105,10 +103,5 @@ void init(WolfT *wolf, char *name, int age) {
 	wolf->animal->agefunc = &getAge;
 	wolf->huntfunc = &hunt;
 }
-/*
-deinit(struct Wolf *wolf) {
-
-}
-*/
 
 #endif
