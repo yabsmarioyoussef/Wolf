@@ -10,13 +10,13 @@ typedef struct Animal {
 	int age;
 	int energy;
 
-	void (*eatfunc)(struct Animal*);
-	void (*poopfunc)(struct Animal*);
+	void (*eatfunc)(AnimalT);
+	void (*poopfunc)(AnimalT);
 	int (*getTTLfunc)(int, int);
-	void (*sleepfunc)(struct Animal*);
-	int (*energyfunc)(struct Animal*);
-	char * (*namefunc)(struct Animal*);
-	int (*agefunc)(struct Animal*);
+	void (*sleepfunc)(AnimalT);
+	int (*energyfunc)(AnimalT);
+	char * (*namefunc)(AnimalT);
+	int (*agefunc)(AnimalT);
 } AnimalT;
 
 static void eat(AnimalT *animal);

@@ -26,4 +26,3 @@ int main(void) {
     printf("wolfs time to live is %d years \n", getTTL(age, energy));
 
 }
-
