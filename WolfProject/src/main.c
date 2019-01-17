@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#define MODULE_WOLF
 #include "wolf.c"
 
 int main(void) {
@@ -25,4 +26,3 @@ int main(void) {
     printf("wolfs time to live is %d years \n", getTTL(age, energy));
 
 }
-
